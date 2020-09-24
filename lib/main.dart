@@ -50,7 +50,6 @@ _buildRoutes(context){
     '/':(context) => HomePage(),
     '/food_display':(context) => FoodDisplay(),
     '/settings':(context) => SettingsPage(),
-    '/test_area2':(context) => searchBar(),
   };
 
 }
