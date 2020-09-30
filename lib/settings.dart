@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:projeto_3/assets_handler.dart';
 import 'package:projeto_3/blocs/theme.dart';
+import 'package:projeto_3/widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'infra.dart';
@@ -17,7 +20,7 @@ class _SettingsState extends State<SettingsPage> {
     ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
 
     return Scaffold(
-      appBar: AppBar(
+    /*appBar: AppBar(
         actions: [
           Icon(
             Icons.search
@@ -26,9 +29,32 @@ class _SettingsState extends State<SettingsPage> {
             width: 30,
           )
         ],
-      ),
+      ),*/
       body: Column(
         children: [
+          Hero(
+            tag: 'intelibar',
+            child: Material(
+              color: Colors.transparent,
+              child: InteliBar(
+                title: Text("Settings",
+                style: GoogleFonts.inriaSans(
+                    fontSize: 25,
+                    color: Assets.whiteColor,
+                    shadows: [
+                      Shadow(
+                          offset: Offset(0,2),
+                          blurRadius: 2,
+                          color: Colors.black.withOpacity(0.5)
+                      )
+                    ]
+                ),),
+                color: Assets.blueColor,
+                leftIcon: Icons.arrow_back,
+                leftPath: '/',
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(50.0),
             child: Row(

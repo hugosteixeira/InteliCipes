@@ -20,29 +20,13 @@ class FoodDisplayPage extends State<FoodDisplay>{
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Assets.whiteColor,
-      /*appBar: AppBar(
-        title: Center(
-          child: Image(image: Assets.Display01,
-            height: 25,),
-        ),
-        actions: [
-          Icon(
-              Icons.search
-          ),
-          Icon(
-              Icons.more_vert
-          )
-        ],
-      ),*/
       body: Column(
         children: [
-          //InteliBar(),
-          //SizedBox(height: 5,),
           Container(
             height: Helper.getScreenHeight(context),
             decoration: BoxDecoration(
                 //borderRadius: BorderRadius.vertical(top:Radius.circular(40)),
-                color: Assets.blackColor,
+                color: Assets.darkGreyColor,
             ),
             child: Column(
               children: [
@@ -58,17 +42,17 @@ class FoodDisplayPage extends State<FoodDisplay>{
                 GestureDetector( // Deslizar para baixo para voltar a tela
                   onVerticalDragUpdate: (details) {
                     if(details.delta.dy > 2){
-                      Helper.go(context,'/');
+                      Helper.back(context);
                     }
                   },
                   child: Hero( // animaçao entre as telas
                       tag:'searchbar',
                       child:Material(
                         color: Colors.transparent,
-                        child: SearchBar(color_main:Assets.whiteColor,color_icon:Assets.blackColor,barSize: 50,),
+                        child: SearchBar(color_main:Assets.whiteColor,color_icon:Assets.blackColorPlaceholder,barSize: 50,),
                       )),
                 ),
-                Assets.SmallPaddingBox,
+                Assets.smallPaddingBox,
                 Container(
                   height: Helper.getScreenHeight(context)-85, // se der problema de overflow incremente esse numero
                   child: ListView.builder(
@@ -84,7 +68,6 @@ class FoodDisplayPage extends State<FoodDisplay>{
       ),
     );
   }
-
   Widget _buildListTile(context,index){
     var __receita = _items;
     var _receita = __receita[index];
@@ -100,50 +83,15 @@ class FoodDisplayPage extends State<FoodDisplay>{
                 blurRadius: 5
               )
             ]
-
           ),
-          child: ReceitaDisplay(titulo:_receita.titulo,ingredientes:_receita.ingredientes,tempo:_receita.tempo,image: _receita.image,height_main: 230,)
-
-
-
-
-              /*Row(
-                children: [
-                  Placeholder(
-                    fallbackHeight: 50,
-                    fallbackWidth: 50,
-                  ),
-                  SizedBox(
-                    width: 20,
-                    height: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${_receita.titulo}",
-                        style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                      ),
-                      Text("Ingredientes necessarios: ${_receita.nIngredientes}"),
-                      Text("Tempo de preparo: ${_receita.tempo}"),
-                    ],
-                  ),
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: Helper.getScreenWidth(context),
-                  height: 1,
-                  child: Container(
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-            ],
-          ),*/
+          child: ReceitaDisplay(
+            titulo:_receita.titulo,
+            ingredientes:_receita.ingredientes,
+            tempo:_receita.tempo,
+            image: _receita.image,
+            height_main: 230,
+            iconColor: Assets.blueColor,
+          )
         ),
       );
     }

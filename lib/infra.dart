@@ -21,6 +21,9 @@ class _Helper {
   void go(context, routeName, {arguments}) {
     Navigator.pushNamed(context, routeName, arguments: arguments);
   }
+  void goReplace(context, routeName, {arguments}) {
+    Navigator.pushReplacementNamed(context, routeName, arguments: arguments);
+  }
 
   void back(context) {
     Navigator.pop(context);

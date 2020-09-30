@@ -48,16 +48,30 @@ class HomePage extends StatelessWidget {
       ) ,*/
       body: Column(
         children: [
-          InteliBar(),
-          Assets.SmallPaddingBox,
+          Hero(
+            tag: 'intelibar',
+            child: Material(
+              color: Colors.transparent,
+              child: InteliBar(
+                color: Assets.blueColor,
+                rightPath: '/settings',
+              ),
+            ),
+          ),
+          Assets.smallPaddingBox,
           Hero(
               tag: 'searchbar',
               child: Material(
                 color: Colors.transparent,
                 child:
-                  SearchBar(color_icon:Assets.whiteColor),
+                  SearchBar(
+                    color_icon:Assets.whiteColor,
+                    color_main: Assets.darkGreyColor,
+                  ),
               )
           ),
+          Assets.smallPaddingBox,
+          ColectionBar(),
           Placeholder(),
         ],
       ),

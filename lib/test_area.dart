@@ -37,7 +37,7 @@ class WidgetDisplay extends StatelessWidget {
                       Container(
                         height: Helper.getScreenHeight(context)/3.4,
                         decoration: BoxDecoration(
-                          color: Assets.redColor,
+                          color: Assets.redColorPlaceholder,
                           ),
                       ),
                       Row(
@@ -45,11 +45,11 @@ class WidgetDisplay extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text("${this.titulo}",
-                            style: Assets.InriaSans25,
+                            style: Assets.inriaSans25,
                             ),
                           ),
                           Text("$tempo min",
-                          style: Assets.InriaSans18dim,
+                          style: Assets.inriaSans18dim,
                           ),
                           Icon(Icons.timer,
                           color:Colors.grey,),
@@ -58,7 +58,7 @@ class WidgetDisplay extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: Icon(Icons.favorite_border,
                             size: 40,
-                            color: Assets.redColor,),
+                            color: Assets.redColorPlaceholder,),
                           )
 
                         ],

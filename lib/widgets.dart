@@ -1,37 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:projeto_3/assets_handler.dart';
-import 'package:image_size_getter/image_size_getter.dart';
-
 import 'infra.dart';
-
-/*class ICscaffold extends StatelessWidget {
-  final body;
-  final appbar;
-
-  const ICscaffold({Key key, this.appbar, this.body}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appbar,
-      body: body,
-      drawer: _buildDrawer(context),
-    );
-  }
-
-  _buildAppBar(context) {
-    if (this.appbar == Null) {
-      return {};
-    }
-    return AppBar(
-      title: Text("InteliCipes"),
-    );
-  }
-
-  _buildDrawer(context) {
-    return;
-  }
-}*/
 
 class searchBar extends StatefulWidget{
   @override
@@ -44,14 +14,19 @@ class _searchBar extends State<searchBar>{
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.black,
+      color: Colors.grey,
       child: Scaffold(
-        backgroundColor: Assets.blackColor,
+        backgroundColor: Assets.whiteColor,
         body: Column(
           children: [
-            InteliBar(),
+            InteliBar(
+              leftIcon: Icons.arrow_back,
+              leftPath: '/',
+            ),
             SizedBox(height: 20,),
-            ReceitaDisplay(titulo:null,ingredientes: [null,null],tempo: null,height_main: 230,image: Assets.Placeholder4,),
+            ColectionBar(),
+            TextBar(texto: 'teste',color: Assets.blackColorPlaceholder,padding: 3,)
+            //ReceitaDisplay(titulo:null,ingredientes: [null,null],tempo: null,height_main: 230,image: Assets.Placeholder4,),
           ],
         ),
       ),
@@ -60,6 +35,42 @@ class _searchBar extends State<searchBar>{
 }
 
 class InteliBar extends StatelessWidget{
+  Color color;
+  IconData leftIcon;
+  String leftPath;
+  IconData rightIcon;
+  String rightPath;
+  var title;
+  InteliBar({this.color,this.leftIcon,this.leftPath,this.rightIcon,this.rightPath,this.title});
+
+  Color setColor(color,placeholder){ // aplica um placeholder
+    if (color == null){
+      //print('InteliBar setColor = Placeholder');
+      print(color);
+      return placeholder;
+    }
+    else{
+      return color;
+    }
+  }
+  setIcon(icon,placeholder){ // aplica um placeholder
+    if (icon == null){
+      //print('InteliBar setIcon = Placeholder');
+      return placeholder;
+    }
+    else{
+      return Icon(icon);
+    }
+  }
+  setTitle(title,placeholder){
+    if (title == null){
+      //print('InteliBar setTitle = Placeholder');
+      return placeholder;
+    }
+    else{
+      return title;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +78,7 @@ class InteliBar extends StatelessWidget{
       width: Helper.getScreenWidth(context),
       height: 80,
       decoration: BoxDecoration(
-        color: Assets.redColor,
+        color: setColor(color,Assets.redColorPlaceholder),// placeholder : Assets.redColorPlaceholder
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(20))
       ),
       child: Padding(
@@ -79,16 +90,17 @@ class InteliBar extends StatelessWidget{
               children: [
                 SizedBox(width: 15,),
                 IconButton(
-                    icon: Icon(Icons.menu),
-                  onPressed: () => Helper.go(context,'/settings'),
+                    icon: setIcon(leftIcon, Icon(Icons.menu)),// placeholder : Icon(Icons.menu),
+                  onPressed: () => Helper.goReplace(context,leftPath),
                 ),
                 Spacer(),
-                Image(image:Assets.IntelicipesLogo01,
-                height: 25,),
+                setTitle( title, Image(image:Assets.IntelicipesLogo01,height: 25,)), /*Image(image:Assets.IntelicipesLogo01,height: 25,),*/
                 Spacer(),
-                Icon(Icons.more_vert),
+                IconButton(
+                  icon: setIcon(rightIcon, Icon(Icons.more_vert)),// placeholder : Icon(Icons.more_vert),
+                  onPressed: ()=> Helper.goReplace(context,rightPath),
+                ),
                 SizedBox(width: 15,),
-
               ],
             ),
           ],
@@ -98,7 +110,6 @@ class InteliBar extends StatelessWidget{
   }
 
 }
-
 class SearchBar extends StatelessWidget {
   Color color_main;
   Color color_icon;
@@ -107,7 +118,8 @@ class SearchBar extends StatelessWidget {
 
   double setBarSize(size){
     if (barSize == null){
-    return size - 20;
+      //print('SearchBar barSize = Placeholder');
+      return size - 20;
     }
     else{
       return size - barSize;
@@ -115,7 +127,8 @@ class SearchBar extends StatelessWidget {
   }
   Color setColor(color){
     if (color == null){
-      return Assets.blackColor;
+      //print('SearchBar color = blackColorPlaceholder');
+      return Assets.blackColorPlaceholder;
     }
     else{
       return color;
@@ -141,7 +154,7 @@ class SearchBar extends StatelessWidget {
                 children: [
 
                   Text("Pesquisar...",
-                  style: Assets.InriaSans18dim,
+                  style: Assets.inriaSans18dim,
                 ),
                 Spacer(),
                 Icon(Icons.search,
@@ -157,18 +170,20 @@ class SearchBar extends StatelessWidget {
   }
 }
 class ReceitaDisplay extends StatelessWidget {
-  final String titulo;
-  final List ingredientes;
-  final int tempo;
-  final double height_main;
-  final AssetImage image;
-  ReceitaDisplay({this.titulo, this.ingredientes, this.tempo,this.height_main,this.image});
+  String titulo;
+  List ingredientes;
+  int tempo;
+  double height_main;
+  AssetImage image;
+  Color iconColor;
+
+  ReceitaDisplay({this.titulo, this.ingredientes, this.tempo,this.height_main,this.image,this.iconColor});
   Widget imageCheck(width){
     if (this.image == null){
       return Container(
         height: height_main-60,
         decoration: BoxDecoration(
-          color: Assets.redColor,
+          color: Assets.blueColor,
         ),
       );
     }
@@ -180,6 +195,10 @@ class ReceitaDisplay extends StatelessWidget {
       );
     }
   }
+  setColor(color){
+    if (color == null) return Assets.redColorPlaceholder;
+    else return color;
+}
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -209,11 +228,11 @@ class ReceitaDisplay extends StatelessWidget {
                         child: Row(
                           children: [
                             Text("${this.titulo}",
-                              style: Assets.InriaSans25,
+                              style: Assets.inriaSans25,
                             ),
-                            Assets.SmallPaddingBox,
+                            Assets.smallPaddingBox,
                             Text("$tempo min",
-                              style: Assets.InriaSans18dim,
+                              style: Assets.inriaSans18dim,
                             ),
                             Icon(Icons.timer,
                               color:Colors.grey,),
@@ -223,7 +242,7 @@ class ReceitaDisplay extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
 
-                        child: Text("$ingredientes".replaceRange(30, "$ingredientes".length, "..."), style: Assets.InriaSans18dim,),
+                        child: Text("$ingredientes".replaceRange(30, "$ingredientes".length, "..."), style: Assets.inriaSans18dim,),
                       )
                     ],
                   ),
@@ -232,14 +251,130 @@ class ReceitaDisplay extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 8),
                     child: Icon(Icons.favorite_border,
                       size: 40,
-                      color: Assets.redColor,),
+                      color: setColor(iconColor)),
                   )
 
                 ],
               ),
-              Assets.SmallPaddingBox
+              Assets.smallPaddingBox
             ]
         )
+    );
+  }
+}
+
+class TextBar extends StatelessWidget{
+  Color color;
+  String texto;
+  double padding;
+  TextStyle style;
+
+  TextBar({this.color,this.texto,this.padding,this.style});
+
+  setPadding(padding){
+    if (padding == null){
+      return 2;
+    }
+    else return padding;
+  }
+
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(100),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(padding),
+        child: Text(texto,
+        style: style
+        ),
+      )
+    );
+  }
+
+}
+class ColectionItem extends StatelessWidget{
+  AssetImage image;
+  ColectionItem({this.image});
+  setImage(image){
+    if (image == null){
+      return Container(
+        color:Assets.whiteColor,
+        height: 80,
+        width: 80,
+      );
+    }
+    else{
+      return image;
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      clipBehavior: Clip.antiAlias,
+      width: 80,
+      height: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Assets.whiteColor
+      ),
+      child: setImage(image),
+    );
+  }
+}
+class ColectionBar extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: Assets.darkGreyColor,
+        ),
+        height: 110,
+        width: Helper.getScreenWidth(context),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Material(
+              color: Colors.transparent,
+              child: Container(
+                height: 110,
+                child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 8,
+                    itemBuilder: _ListBuilder
+                  ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  Widget _ListBuilder(context,index){
+    return Container(
+      child: Column(
+        children: [
+          SizedBox(height: 5,),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 3),
+            child: ColectionItem(),
+          ),
+          SizedBox(height: 5,),
+          TextBar(
+            color:Colors.white,
+            texto: "categoria $index",
+            padding: 2,
+            style: InriaSansStyle(
+              color: Assets.darkGreyColor,
+              size: 10,
+            ).get(),
+          )
+        ],
+      ),
     );
   }
 }
