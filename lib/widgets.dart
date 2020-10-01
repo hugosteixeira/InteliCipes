@@ -231,11 +231,11 @@ class ReceitaDisplay extends StatelessWidget {
                         child: Row(
                           children: [
                             Text("${this.titulo}",
-                              style: Assets.inriaSans18,
+                              style: Assets.inriaSans25,
                             ),
                             Assets.smallPaddingBox,
                             Text("$tempo min",
-                              style: Assets.inriaSans10dim,
+                              style: Assets.inriaSans18dim,
                             ),
                             Icon(Icons.timer,
                               color:Colors.grey,),
@@ -245,7 +245,7 @@ class ReceitaDisplay extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
 
-                        child: Text("ingredientes: $ingredientes".replaceRange(getLen("ingredientes: $ingredientes",30), "ingredientes: $ingredientes".length, "..."), style: Assets.inriaSans10dim,),
+                        child: Text("ingredientes: $ingredientes".replaceRange(getLen("ingredientes: $ingredientes",30), "ingredientes: $ingredientes".length, "..."), style: Assets.inriaSans18dim,),
                       )
                     ],
                   ),
