@@ -44,6 +44,7 @@ class FoodDisplayPage extends State<FoodDisplay>{
                     if(details.delta.dy > 2){
                       Helper.back(context);
                     }
+
                   },
                   child: Hero( // animaçao entre as telas
                       tag:'searchbar',

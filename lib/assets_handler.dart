@@ -13,7 +13,7 @@ class Assets{
   static final AssetImage Placeholder3 = AssetImage("extra/Images/placeholder comida 03.png");
   static final AssetImage Placeholder4 = AssetImage("extra/Images/placeholder comida 04.png");
   static final AssetImage Display01 = AssetImage("extra/Images/receita 01.png");
-  static final SizedBox smallPaddingBox = SizedBox(height: 10,width: 10);
+  static final SizedBox smallPaddingBox = SizedBox(height: 8,width: 8);
   static final Color redColorPlaceholder = Color(0xfff8333c);
   static final Color blackColorPlaceholder = Color(0xff2d3142);
   static final Color yellowColorPlaceholder = Color(0xfffcab10);

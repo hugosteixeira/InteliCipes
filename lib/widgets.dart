@@ -179,7 +179,7 @@ class ReceitaDisplay extends StatelessWidget {
 
   ReceitaDisplay({this.titulo, this.ingredientes, this.tempo,this.height_main,this.image,this.iconColor});
   Widget imageCheck(width){
-    if (this.image == null){
+    if (image == null){
       return Container(
         height: height_main-60,
         decoration: BoxDecoration(
@@ -196,19 +196,22 @@ class ReceitaDisplay extends StatelessWidget {
     }
   }
   setColor(color){
-    if (color == null) return Assets.redColorPlaceholder;
+    if (color == null) return Assets.blueColor;
     else return color;
-}
+  }
+  getLen(String string,limit){
+    if (string.length >= limit){
+      return limit;
+    }
+    else return string.length;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         clipBehavior: Clip.antiAliasWithSaveLayer,
         width: Helper.getScreenWidth(context),
         decoration: BoxDecoration(
-            boxShadow: [BoxShadow(
-              blurRadius: 15,
-            ),
-            ],
             color: Colors.white,
             borderRadius: BorderRadius.all(
               Radius.circular(30),
@@ -228,11 +231,11 @@ class ReceitaDisplay extends StatelessWidget {
                         child: Row(
                           children: [
                             Text("${this.titulo}",
-                              style: Assets.inriaSans25,
+                              style: Assets.inriaSans18,
                             ),
                             Assets.smallPaddingBox,
                             Text("$tempo min",
-                              style: Assets.inriaSans18dim,
+                              style: Assets.inriaSans10dim,
                             ),
                             Icon(Icons.timer,
                               color:Colors.grey,),
@@ -242,7 +245,7 @@ class ReceitaDisplay extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
 
-                        child: Text("$ingredientes".replaceRange(30, "$ingredientes".length, "..."), style: Assets.inriaSans18dim,),
+                        child: Text("ingredientes: $ingredientes".replaceRange(getLen("ingredientes: $ingredientes",30), "ingredientes: $ingredientes".length, "..."), style: Assets.inriaSans10dim,),
                       )
                     ],
                   ),
@@ -260,6 +263,7 @@ class ReceitaDisplay extends StatelessWidget {
             ]
         )
     );
+
   }
 }
 
@@ -268,8 +272,10 @@ class TextBar extends StatelessWidget{
   String texto;
   double padding;
   TextStyle style;
+  String theme;
+  double size;
 
-  TextBar({this.color,this.texto,this.padding,this.style});
+  TextBar({this.size,this.color,this.texto,this.padding,this.style,this.theme});
 
   setPadding(padding){
     if (padding == null){
@@ -277,13 +283,34 @@ class TextBar extends StatelessWidget{
     }
     else return padding;
   }
-
+  setTheme(theme){
+    if (theme == 'light'){
+      this.color = Colors.white;
+      this.padding = 4;
+      this.style =  InriaSansStyle(
+        color: Assets.darkGreyColor,
+        size: size,
+      ).get();
+    }
+    else if (theme == 'dark'){
+      this.color = Assets.darkGreyColor;
+      this.padding = 4;
+      this.style =  InriaSansStyle(
+        color: Assets.whiteColor,
+        size: size,
+      ).get();
+    }
+  }
+  changeTexto(texto){
+    this.texto = texto;
+  }
   @override
   Widget build(BuildContext context){
+    setTheme(theme);
     return Container(
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(100),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Padding(
         padding: EdgeInsets.all(padding),
@@ -294,7 +321,7 @@ class TextBar extends StatelessWidget{
     );
   }
 
-}
+} // themes 'dark' & 'light'
 class ColectionItem extends StatelessWidget{
   AssetImage image;
   ColectionItem({this.image});
@@ -307,7 +334,11 @@ class ColectionItem extends StatelessWidget{
       );
     }
     else{
-      return image;
+      return
+        Image.asset(image.assetName,
+          scale: 1,
+          width: 80,
+        );
     }
   }
   @override
@@ -334,6 +365,7 @@ class ColectionBar extends StatelessWidget{
           color: Assets.darkGreyColor,
         ),
         height: 110,
+        clipBehavior: Clip.antiAlias,
         width: Helper.getScreenWidth(context),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -376,5 +408,72 @@ class ColectionBar extends StatelessWidget{
         ],
       ),
     );
+  }
+}
+
+class RecommendedDisplay extends StatelessWidget{
+  @override
+  Widget build(BuildContext context){
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          color: Assets.darkGreyColor
+        ),
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextBar(
+                texto: "Recomendados",
+                theme: 'light',
+                size: 15,
+              ),
+            ),
+            Expanded(
+              child: Container(
+
+                child: ListView.builder(
+
+                  padding: EdgeInsets.all(1),
+                  itemCount: 3,
+                  itemBuilder: _buildList,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  Widget _buildList(context,index){
+    return ListTile(
+      title: _alterDisplay(index,
+        ReceitaDisplay(
+          titulo: "2",
+          tempo: 1,
+          ingredientes: [1,2],
+          height_main: 240,
+        ),
+        Center(
+          child: TextBar(
+            texto: "mais...",
+            padding: 10,
+            color: Colors.white,
+            style: InriaSansStyle(
+              size: 18,
+              color: Assets.darkGreyColor
+            ).get(),
+          ),
+        ),
+      ),
+    );
+
+  }
+  _alterDisplay(index, widget1, widget2){
+    if (index < 2) return widget1;
+    else return widget2;
   }
 }

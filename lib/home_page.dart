@@ -71,8 +71,25 @@ class HomePage extends StatelessWidget {
               )
           ),
           Assets.smallPaddingBox,
-          ColectionBar(),
-          Placeholder(),
+          Row(
+            children: [
+              Assets.smallPaddingBox,
+              TextBar(
+                texto: "Categorias",
+                color: Assets.darkGreyColor,
+                padding: 2,
+                style: InriaSansStyle(
+                  color: Assets.whiteColor,
+                  size: 13,
+                ).get(),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 4,left: 8,right: 8,bottom: 8),
+            child: ColectionBar(),
+          ),//ColectionBar
+          RecommendedDisplay(),
         ],
       ),
     );
