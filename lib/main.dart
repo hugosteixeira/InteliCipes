@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'settings.dart';
 import 'Receitas.dart';
 import 'home_page.dart';
-import 'test_area.dart';
 import 'package:projeto_3/widgets.dart';
 
 void main() {

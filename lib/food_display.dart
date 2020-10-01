@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_3/test_area.dart';
 import 'package:projeto_3/widgets.dart';
 import 'Receitas.dart';
 import 'assets_handler.dart';

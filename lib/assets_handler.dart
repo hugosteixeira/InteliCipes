@@ -22,58 +22,30 @@ class Assets{
   static final Color darkGreyColor = Color(0xff373F51);
   static final Color whiteColorAlt = Color(0xffD8DBE2);
 
-  static final TextStyle inriaSans45 = GoogleFonts.inriaSans(
-      fontSize: 45,
-      fontStyle: FontStyle.italic);
-  static final TextStyle inriaSans35 = GoogleFonts.inriaSans(
-      fontSize: 35,
-      fontStyle: FontStyle.italic,
-      fontWeight: FontWeight.w100);
-  static final TextStyle inriaSans25 = GoogleFonts.inriaSans(
-      fontSize: 25,
-  );
-  static final TextStyle inriaSans25dim = GoogleFonts.inriaSans(
-      fontSize: 25,
-      color: Assets.whiteColor,
-      shadows: [
-        Shadow(
-            offset: Offset(0,2),
-            blurRadius: 2,
-            color: Colors.black.withOpacity(0.5)
-        )
-      ]
-  );
-  static final TextStyle inriaSans18 = GoogleFonts.inriaSans(
-      fontSize: 18,
-      fontStyle: FontStyle.italic);
   static final TextStyle inriaSans18dim = GoogleFonts.inriaSans(
       fontSize: 18,
       fontStyle: FontStyle.italic,
       color: Colors.grey
-  );
-  static final TextStyle inriaSans10dim = GoogleFonts.inriaSans(
-      fontSize: 10,
-      fontStyle: FontStyle.italic,
-      color: Colors.white
-  );
-  static final TextStyle inriaSans10 = GoogleFonts.inriaSans(
-      fontSize: 10,
-      fontStyle: FontStyle.italic,
-      color: darkGreyColor
   );
 }
 class InriaSansStyle{
   Color color;
   FontStyle fontStyle;
   double size;
-  InriaSansStyle({this.color, this.fontStyle, this.size});
+  List<Shadow> shadow;
+  InriaSansStyle({this.color, this.fontStyle, this.size,this.shadow});
   get(){
     if (color == null){
+      this.color = Colors.black;
+    }
+    if (size == null){
+      this.size = 15;
     }
     return GoogleFonts.inriaSans(
       fontSize: size,
       fontStyle: fontStyle,
       color: color,
+      shadows: shadow
     );
   }
 }

@@ -231,7 +231,9 @@ class ReceitaDisplay extends StatelessWidget {
                         child: Row(
                           children: [
                             Text("${this.titulo}",
-                              style: Assets.inriaSans25,
+                              style: InriaSansStyle(
+                                size: 25
+                              ).get(),
                             ),
                             Assets.smallPaddingBox,
                             Text("$tempo min",
@@ -300,9 +302,6 @@ class TextBar extends StatelessWidget{
         size: size,
       ).get();
     }
-  }
-  changeTexto(texto){
-    this.texto = texto;
   }
   @override
   Widget build(BuildContext context){

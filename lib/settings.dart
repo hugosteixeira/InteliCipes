@@ -5,6 +5,7 @@ import 'package:projeto_3/blocs/theme.dart';
 import 'package:projeto_3/widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'assets_handler.dart';
 import 'infra.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -38,17 +39,18 @@ class _SettingsState extends State<SettingsPage> {
               color: Colors.transparent,
               child: InteliBar(
                 title: Text("Settings",
-                style: GoogleFonts.inriaSans(
-                    fontSize: 25,
+                style: InriaSansStyle(
+                    size: 25,
                     color: Assets.whiteColor,
-                    shadows: [
+                    shadow: [
                       Shadow(
                           offset: Offset(0,2),
                           blurRadius: 2,
                           color: Colors.black.withOpacity(0.5)
                       )
-                    ]
-                ),),
+                    ]).get(),
+
+                ),
                 color: Assets.blueColor,
                 leftIcon: Icons.arrow_back,
                 leftPath: '/',
