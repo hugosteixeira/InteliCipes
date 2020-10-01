@@ -4,6 +4,7 @@ import 'package:projeto_3/widgets.dart';
 import 'assets_handler.dart';
 
 class HomePage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
 
@@ -17,6 +18,8 @@ class HomePage extends StatelessWidget {
               color: Colors.transparent,
               child: InteliBar(
                 color: Assets.blueColor,
+                leftIcon: Icons.menu,
+                rightIcon: Icons.more_vert,
                 rightPath: '/settings',
               ),
             ),
@@ -30,6 +33,8 @@ class HomePage extends StatelessWidget {
                   SearchBar(
                     color_icon:Assets.whiteColor,
                     color_main: Assets.darkGreyColor,
+                    path: '/food_display',
+                    action: 'modal',
                   ),
               )
           ),
@@ -39,12 +44,8 @@ class HomePage extends StatelessWidget {
               Assets.smallPaddingBox,
               TextBar(
                 texto: "Categorias",
-                color: Assets.darkGreyColor,
-                padding: 2,
-                style: InriaSansStyle(
-                  color: Assets.whiteColor,
-                  size: 13,
-                ).get(),
+                theme: 'dark',
+                size: 15,
               ),
             ],
           ),

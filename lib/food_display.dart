@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_3/widgets.dart';
 import 'Receitas.dart';
@@ -43,10 +44,9 @@ class FoodDisplayPage extends State<FoodDisplay>{
                     if(details.delta.dy > 2){
                       Helper.back(context);
                     }
-
                   },
                   child: Hero( // animaçao entre as telas
-                      tag:'searchbar',
+                    tag:'searchbar',
                       child:Material(
                         color: Colors.transparent,
                         child: SearchBar(color_main:Assets.whiteColor,color_icon:Assets.blackColorPlaceholder,barSize: 50,),
@@ -57,6 +57,7 @@ class FoodDisplayPage extends State<FoodDisplay>{
                   height: Helper.getScreenHeight(context)-85, // se der problema de overflow incremente esse numero
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,
+                    padding: EdgeInsets.all(0),
                     itemCount: _items.length,
                     itemBuilder: _buildListTile,
                   ),

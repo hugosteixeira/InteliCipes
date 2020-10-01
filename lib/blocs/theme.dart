@@ -24,7 +24,8 @@ class Themes{
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       foregroundColor: Colors.white,
       backgroundColor: Colors.red.shade900,
-    )
+    ),
+    canvasColor: Colors.transparent
   );
 
   static final ThemeData themed = ThemeData(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:projeto_3/assets_handler.dart';
+import 'Receitas.dart';
 import 'infra.dart';
 
 class searchBar extends StatefulWidget{
@@ -53,10 +54,20 @@ class InteliBar extends StatelessWidget{
       return color;
     }
   }
+  placeIcon(context,icon,path){
+    if (icon == null){
+      return SizedBox(width: 40,);
+    }
+    return IconButton(
+      icon: Icon(icon),// placeholder : Icon(Icons.menu),
+      onPressed: () => Helper.goReplace(context,path),
+    );
+  }
   setIcon(icon,placeholder){ // aplica um placeholder
     if (icon == null){
       //print('InteliBar setIcon = Placeholder');
-      return placeholder;
+      //return placeholder;
+      return null;
     }
     else{
       return Icon(icon);
@@ -89,17 +100,19 @@ class InteliBar extends StatelessWidget{
             Row(
               children: [
                 SizedBox(width: 15,),
-                IconButton(
-                    icon: setIcon(leftIcon, Icon(Icons.menu)),// placeholder : Icon(Icons.menu),
-                  onPressed: () => Helper.goReplace(context,leftPath),
-                ),
+                placeIcon(context, leftIcon,leftPath),
+                //IconButton(
+                //    icon: setIcon(leftIcon, Icon(Icons.menu)),// placeholder : Icon(Icons.menu),
+                //  onPressed: () => Helper.goReplace(context,leftPath),
+                //),
                 Spacer(),
                 setTitle( title, Image(image:Assets.IntelicipesLogo01,height: 25,)), /*Image(image:Assets.IntelicipesLogo01,height: 25,),*/
                 Spacer(),
-                IconButton(
-                  icon: setIcon(rightIcon, Icon(Icons.more_vert)),// placeholder : Icon(Icons.more_vert),
-                  onPressed: ()=> Helper.goReplace(context,rightPath),
-                ),
+                placeIcon(context, rightIcon, rightPath),
+                //IconButton(
+                //  icon: setIcon(rightIcon, Icon(Icons.more_vert)),// placeholder : Icon(Icons.more_vert),
+                //  onPressed: ()=> Helper.goReplace(context,rightPath),
+                //),
                 SizedBox(width: 15,),
               ],
             ),
@@ -114,11 +127,34 @@ class SearchBar extends StatelessWidget {
   Color color_main;
   Color color_icon;
   double barSize;
-  SearchBar({this.color_main,this.color_icon,this.barSize});
+  String path,action;
+  SearchBar({this.color_main,this.color_icon,this.barSize,this.path,this.action});
+  void _ShowModal(BuildContext context){
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (context)
+        {
+          return ModalSearchPage();
+        },
 
+    );
+  }
+  setPath(context){
+    if (path == null){
+      return null;
+    }
+    if (action == 'modal')
+      return () => _ShowModal(context);
+    if (action == 'go'){
+      return () => Helper.go(context,path);
+    }
+    if (action == 'back'){
+      return () => Helper.back(context);
+    }
+  }
   double setBarSize(size){
     if (barSize == null){
-      //print('SearchBar barSize = Placeholder');
       return size - 20;
     }
     else{
@@ -127,7 +163,6 @@ class SearchBar extends StatelessWidget {
   }
   Color setColor(color){
     if (color == null){
-      //print('SearchBar color = blackColorPlaceholder');
       return Assets.blackColorPlaceholder;
     }
     else{
@@ -165,7 +200,7 @@ class SearchBar extends StatelessWidget {
           ]
         ),
       ),
-      onTap: () => Helper.go(context,'/food_display'),
+      onTap: setPath(context),
     );
   }
 }
@@ -276,9 +311,20 @@ class TextBar extends StatelessWidget{
   TextStyle style;
   String theme;
   double size;
+  String path,action;
 
-  TextBar({this.size,this.color,this.texto,this.padding,this.style,this.theme});
-
+  TextBar({this.size,this.color,this.texto,this.padding,this.style,this.theme,this.path,this.action});
+  setPath(context){
+    if (path == null){
+      return null;
+    }
+    if (action == 'go'){
+      return () => Helper.go(context,path);
+    }
+    if (action == 'back'){
+      return () => Helper.back(context);
+    }
+  }
   setPadding(padding){
     if (padding == null){
       return 2;
@@ -306,17 +352,20 @@ class TextBar extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     setTheme(theme);
-    return Container(
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Padding(
-        padding: EdgeInsets.all(padding),
-        child: Text(texto,
-        style: style
+    return InkWell(
+      onTap: setPath(context),
+      child: Container(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(20),
         ),
-      )
+        child: Padding(
+          padding: EdgeInsets.all(padding),
+          child: Text(texto,
+          style: style
+          ),
+        )
+      ),
     );
   }
 
@@ -396,15 +445,10 @@ class ColectionBar extends StatelessWidget{
           ),
           SizedBox(height: 5,),
           TextBar(
-            color:Colors.white,
             texto: "categoria $index",
-            padding: 2,
-            style: InriaSansStyle(
-              color: Assets.darkGreyColor,
-              size: 10,
-            ).get(),
-          )
-        ],
+            theme: 'light',
+            size: 10,
+          )],
       ),
     );
   }
@@ -433,9 +477,7 @@ class RecommendedDisplay extends StatelessWidget{
             ),
             Expanded(
               child: Container(
-
                 child: ListView.builder(
-
                   padding: EdgeInsets.all(1),
                   itemCount: 3,
                   itemBuilder: _buildList,
@@ -458,6 +500,8 @@ class RecommendedDisplay extends StatelessWidget{
         ),
         Center(
           child: TextBar(
+            path: '/food_display', //todo: area de recomendado
+            action: 'go',
             texto: "mais...",
             padding: 10,
             color: Colors.white,
@@ -474,5 +518,75 @@ class RecommendedDisplay extends StatelessWidget{
   _alterDisplay(index, widget1, widget2){
     if (index < 2) return widget1;
     else return widget2;
+  }
+}
+class ModalSearchPage extends StatelessWidget {
+  final _items = receitaController.getAll();
+
+  @override
+  Widget build(BuildContext context) {
+    return
+    Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+          color: Assets.darkGreyColor
+      ),
+      clipBehavior: Clip.antiAlias,
+      height: Helper.getScreenHeight(context)-80,
+      width: Helper.getScreenWidth(context),
+      child: Column(
+        children: [
+          Assets.smallPaddingBox,
+          Hero( // animaçao entre as telas
+              tag:'searchbar',
+              child:Material(
+                color: Colors.transparent,
+                child: SearchBar(
+                  color_main:Assets.whiteColor,
+                  color_icon:Assets.blackColorPlaceholder,
+                  barSize: 30,
+                ),
+              )),
+          Assets.smallPaddingBox,
+          Expanded(
+            child: Container(
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                padding: EdgeInsets.all(0),
+                itemCount: _items.length,
+                itemBuilder: _buildListTile,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  Widget _buildListTile(context,index) {
+    var __receita = _items;
+    var _receita = __receita[index];
+    return ListTile(
+      visualDensity: VisualDensity.compact,
+      title: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.7),
+                    offset: Offset(0, 3),
+                    blurRadius: 5
+                )
+              ]
+          ),
+          child: ReceitaDisplay(
+            titulo: _receita.titulo,
+            ingredientes: _receita.ingredientes,
+            tempo: _receita.tempo,
+            image: _receita.image,
+            height_main: 230,
+            iconColor: Assets.blueColor,
+          )
+      ),
+    );
   }
 }

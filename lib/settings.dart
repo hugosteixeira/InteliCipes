@@ -21,6 +21,7 @@ class _SettingsState extends State<SettingsPage> {
     ThemeChanger _themeChanger = Provider.of<ThemeChanger>(context);
 
     return Scaffold(
+      backgroundColor: Assets.darkGreyColor,
     /*appBar: AppBar(
         actions: [
           Icon(
