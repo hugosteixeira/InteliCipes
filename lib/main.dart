@@ -1,14 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:projeto_3/Categorias.dart';
 import 'package:projeto_3/assets_handler.dart';
 import 'package:projeto_3/blocs/theme.dart';
-import 'package:projeto_3/food_display.dart';
+import 'package:projeto_3/recommended_display.dart';
 import 'package:provider/provider.dart';
 import 'settings.dart';
 import 'Receitas.dart';
 import 'home_page.dart';
 import 'package:projeto_3/widgets.dart';
+import 'Categorias.dart';
 
 void main() {
   dbInit();
@@ -65,14 +67,22 @@ void dbInit(){
     ingredientes: ["ingrediente $x","ingrediente ${x+1}"],
   );
   receitaController.save(receita);
-  for(int x = 1;x <= 10;x++){
-  receita = Receita(
-    titulo: "receita $x",
-    tipo: "tipo $x",
-    tempo: x+x,
-    nIngredientes: x-2,
-    image: y[Random().nextInt(4)],
-    ingredientes: ["ingrediente $x","ingrediente ${x+1}"],
-  );
-  receitaController.save(receita);
-}}
+  for(int x = 1; x <= 10;x++){
+    receita = Receita(
+      titulo: "receita $x",
+      tipo: "tipo $x",
+      tempo: x+x,
+      nIngredientes: x-2,
+      image: y[Random().nextInt(4)],
+      ingredientes: ["ingrediente $x","ingrediente ${x+1}"],
+    );
+    receitaController.save(receita);
+  }
+  for(int x = 1; x <= 9; x++){
+    var categoria = Categorias(
+      titulo: "categoria $x",
+      image: y[Random().nextInt(4)]
+    );
+    categoriaControler.save(categoria);
+  }
+}

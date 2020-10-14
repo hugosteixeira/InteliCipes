@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:projeto_3/assets_handler.dart';
 
 class ThemeChanger with ChangeNotifier{
   ThemeData themeData = Themes.themed;
@@ -17,8 +18,8 @@ class ThemeChanger with ChangeNotifier{
 class Themes{
 
   static final ThemeData themel = ThemeData(
-    primaryColor: Colors.red,
-    primaryColorDark: Colors.red,
+    primaryColor: Assets.blueColor,
+    primaryColorDark: Assets.blueColor,
     visualDensity: VisualDensity.compact,
     brightness: Brightness.light,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
