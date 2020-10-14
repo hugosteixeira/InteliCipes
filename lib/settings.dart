@@ -4,9 +4,7 @@ import 'package:projeto_3/assets_handler.dart';
 import 'package:projeto_3/blocs/theme.dart';
 import 'package:projeto_3/widgets.dart';
 import 'package:provider/provider.dart';
-
-import 'assets_handler.dart';
-import 'infra.dart';
+import 'package:projeto_3/infra.dart';
 
 class SettingsPage extends StatefulWidget {
   SettingsPage({Key key}) : super(key: key);

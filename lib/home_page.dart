@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_3/infra.dart';
 import 'package:projeto_3/widgets.dart';
-import 'assets_handler.dart';
+import 'package:projeto_3/assets_handler.dart';
 
 class HomePage extends StatelessWidget {
 

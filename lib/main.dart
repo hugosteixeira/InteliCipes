@@ -6,11 +6,10 @@ import 'package:projeto_3/assets_handler.dart';
 import 'package:projeto_3/blocs/theme.dart';
 import 'package:projeto_3/recommended_display.dart';
 import 'package:provider/provider.dart';
-import 'settings.dart';
-import 'Receitas.dart';
-import 'home_page.dart';
+import 'package:projeto_3/settings.dart';
+import 'package:projeto_3/Receitas.dart';
+import 'package:projeto_3/home_page.dart';
 import 'package:projeto_3/widgets.dart';
-import 'Categorias.dart';
 
 void main() {
   dbInit();
