@@ -2,12 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Receita{
-  int id,tempo,nIngredientes;
-  String titulo,tipo;
-  List ingredientes,preparo;
+  var id,index,tempo,nIngredientes;
+  var titulo,tipo;
+  var ingredientes,preparo;
   AssetImage image;
-  Receita({this.id,this.titulo,this.tipo,this.tempo,this.nIngredientes,this.ingredientes,this.image,this.preparo});
+  Receita({this.index,this.id,this.titulo,this.tipo,this.tempo,this.nIngredientes,this.ingredientes,this.image,this.preparo});
 
+  factory Receita.fromJson(Map<String, dynamic> json){
+    return Receita(
+      tempo: json['minutes'],
+      nIngredientes: json['n_ingredients'],
+      titulo: json['name'],
+      index: json['id']
+    );
+  }
 }
 var receitaController = ReceitaController();
 
